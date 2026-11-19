@@ -96,6 +96,17 @@ Use WebAppLocalEncryption.inc
                                 Send NavigatePath
                         End_Procedure
                     End_Object
+
+                    Object oLigasItem1 is a cWebMenuItem
+                        Set psCaption to "Ligas"
+
+                        WebRegisterPath ntNavigateBegin oSelectLiga
+
+                        Procedure OnClick
+                            Forward Send OnClick
+                                Send NavigatePath
+                        End_Procedure
+                    End_Object
                 End_Object
 
                 Object oSignOut_itm is a cWebMenuItem
@@ -184,6 +195,8 @@ Use WebAppLocalEncryption.inc
     Use SelectEntrenador.wo
     Use ZoomPosicion.wo
     Use SelectPosicion.wo
+    Use ZoomLiga.wo
+    Use SelectLiga.wo
     Set phoDefaultView to oDashboard
 
 End_Object
