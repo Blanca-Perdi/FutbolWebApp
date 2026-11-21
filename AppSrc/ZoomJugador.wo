@@ -3,12 +3,14 @@ Use cWebPanel.pkg
 Use cWebMenuGroup.pkg
 Use cWebMenuItem.pkg
 Use cWebForm.pkg
+Use cWebButton.pkg
 
 Use cligaDataDictionary.dd
 Use cequipoDataDictionary.dd
 Use cjugadorDataDictionary.dd
 
 Use SelectEquipo.wo
+Use SelectPosicion.wo
 
 Object oZoomJugador is a cWebView
     Set piColumnCount to 12
@@ -73,6 +75,31 @@ Object oZoomJugador is a cWebView
 
             Procedure OnPrompt
                 Send NavigatePath
+            End_Procedure
+        End_Object
+
+        Object oConsultarPosiciones is a cWebButton
+            Set piColumnSpan to 12
+            Set piColumnIndex to 0
+            Set psCaption to "Consultar posiciones"
+
+            WebRegisterPath ntNavigateForward oSelectPosicion
+
+            Procedure OnClick
+                Send NavigatePath
+            End_Procedure
+
+            Procedure OnGetNavigateForwardData tWebNavigateData ByRef NavigateData Handle hoToView
+                String sObjetoOrigen
+
+                If (NavigateData.eNavigateType = nfUndefined) Begin
+                    Get Name to sObjetoOrigen
+
+                    Send ShowInfoBox ;
+                        ("Tipo: nfUndefined" + Character(10) + ;
+                         "Objeto origen: " + sObjetoOrigen) ;
+                        "Comprobacion de navegacion"
+                End
             End_Procedure
         End_Object
 
