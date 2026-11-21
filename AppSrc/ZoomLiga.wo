@@ -3,11 +3,11 @@ Use cWebPanel.pkg
 Use cWebMenuGroup.pkg
 Use cWebMenuItem.pkg
 Use cWebForm.pkg
-Use cWebButton.pkg
+Use cWebList.pkg
+Use cWebColumn.pkg
 
 Use cligaDataDictionary.dd
-
-Use SelectEquipo.wo
+Use cequipoDataDictionary.dd
 
 Object oZoomLiga is a cWebView
     Set piColumnCount to 12
@@ -19,6 +19,11 @@ Object oZoomLiga is a cWebView
     Set piMaxWidth to 1024
 
     Object oliga_DD is a cligaDataDictionary
+    End_Object
+
+    Object oequipo_DD is a cequipoDataDictionary
+        Set DDO_Server to oliga_DD
+        Set Constrain_File to liga.File_Number
     End_Object
 
     Set Main_DD to oliga_DD
@@ -60,27 +65,25 @@ Object oZoomLiga is a cWebView
             Set psLabel to "Máximo de equipos"
         End_Object
 
-        Object oVerEquipos is a cWebButton
+        Object oListaEquipos is a cWebList
+            Set Server to oequipo_DD
             Set piColumnSpan to 12
             Set piColumnIndex to 0
-            Set psCaption to "Ver equipos de esta liga"
+            Set piHeight to 250
+            Set pbShowHeader to True
+            Set piSortColumn to 0
 
-            WebRegisterPath ntNavigateForward oSelectEquipo
+            Object oEquipoNombre is a cWebColumn
+                Entry_Item equipo.Nombre
+                Set psCaption to "Equipos de esta liga"
+                Set piWidth to 700
+            End_Object
 
-            Procedure OnClick
-                Boolean bHasRecord
-
-                Get HasRecord of oliga_DD to bHasRecord
-
-                If (not(bHasRecord)) Begin
-                    Send ShowInfoBox ;
-                        "Selecciona una liga guardada para consultar sus equipos." ;
-                        "Equipos de la liga"
-                    Procedure_Return
-                End
-
-                Send NavigatePath
-            End_Procedure
+            Object oLigaNombre is a cWebColumn
+                Entry_Item liga.Nombre
+                Set psCaption to "Liga"
+                Set piWidth to 300
+            End_Object
 
         End_Object
 
