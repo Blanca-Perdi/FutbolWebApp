@@ -18,3 +18,7 @@
 
 /Programs/WebApp.log
 /IdeSrc/*_TraceOpts.dsk
+
+# Definiciones SQL de las tablas internas
+!/Data/webappsession.int
+!/Data/webappuser.int
